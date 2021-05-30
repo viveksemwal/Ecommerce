@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -27,10 +28,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @NotBlank
-    @Column(name = "password")
-    private String role;
-
 
     @NotBlank
     @Column(name = "email")
@@ -45,4 +42,13 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id", referencedColumnName = "id")
     private UserDetailInfo details;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 }

@@ -26,8 +26,8 @@ public class VerificationToken {
     @Column(name = "expired_on")
     private Instant expiredon;
 
-    @OneToOne(targetEntity = User.class)
-    @JoinColumn(nullable = false, name="user_id")
-    private User user;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name ="user_id")
+    private long userid;
 
 }

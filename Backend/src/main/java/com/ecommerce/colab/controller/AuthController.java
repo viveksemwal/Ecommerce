@@ -1,29 +1,30 @@
 package com.ecommerce.colab.controller;
 
 import com.ecommerce.colab.dto.SignupDto;
-import com.ecommerce.colab.model.User;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+
+import com.ecommerce.colab.service.AddService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    AddService addService;
 
-    @GetMapping("/signUp")
-    public ModelAndView signupform(ModelAndView modelAndView){
-        modelAndView.addObject("user",new SignupDto());
-        modelAndView.setViewName("signup");
-        return modelAndView;
+
+    @PostMapping("/signUpCustomer")
+    public ResponseEntity<String> signupCustomer(@RequestParam(required = true,name = "username") String username, @RequestParam String password, @RequestParam String email){
+        boolean b=addService.addUser(new SignupDto(username,password,email),"Role_CUSTOMER");
+        return new ResponseEntity<String>("Sucessfully created", HttpStatus.CREATED);
     }
 
-    @PostMapping("/signUp")
-    public ResponseEntity<String> signupSubmit(@RequestParam(required = true,name = "username") String username, @RequestParam String password, @RequestParam String email){
-        User user=Us
-
-        return new ResponseEntity<String>("Sucessfully created", HttpStatus.CREATED)
+    @PostMapping("/signUpSupplier")
+    public ResponseEntity<String> signupSupplier(@RequestParam(required = true,name = "username") String username, @RequestParam String password, @RequestParam String email){
+        boolean b=addService.addUser(new SignupDto(username,password,email),"Role_SUPPLIER");
+        return new ResponseEntity<String>("Sucessfully created", HttpStatus.CREATED);
     }
 
 }
