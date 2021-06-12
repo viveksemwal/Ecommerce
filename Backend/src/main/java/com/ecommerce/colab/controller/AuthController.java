@@ -18,21 +18,16 @@ public class AuthController {
     private AddService addService;
 
 
-    @PostMapping("/signUpCustomer")
-    public ResponseEntity<String> signupCustomer(@RequestParam(required = true,name = "username") String username, @RequestParam(required = true,name = "password")  String password, @RequestParam(required = true,name = "email")  String email){
-        System.out.println(username+password+email);
-        boolean b=addService.addUser(new SignupDto(username,password,email));
+    @PostMapping("/signUp")
+    public ResponseEntity<String> signup(@RequestBody SignupDto signupDto){
+
+        boolean b=addService.addUser(signupDto);
         if(b) {
             return new ResponseEntity<String>("Sucessfully created", HttpStatus.CREATED);
         }else{
-            return new ResponseEntity<String>("Sucessfully created", HttpStatus.BAD_GATEWAY);
+            throw new RuntimeException("unable to add user check values");
         }
     }
 
-    @PostMapping("/signUpSupplier")
-    public ResponseEntity<String> signupSupplier(@RequestParam(required = true,name = "username") String username, @RequestParam String password, @RequestParam String email){
-        boolean b=addService.addUser(new SignupDto(username,password,email));
-        return new ResponseEntity<String>("Sucessfully created", HttpStatus.CREATED);
-    }
 
 }
