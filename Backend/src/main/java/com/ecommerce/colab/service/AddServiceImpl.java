@@ -10,10 +10,11 @@ import lombok.AllArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
-
+@Service
 @AllArgsConstructor
 @Slf4j
 public class AddServiceImpl implements AddService {
@@ -25,15 +26,18 @@ public class AddServiceImpl implements AddService {
 
 
     @Override
-    public Boolean addUser(SignupDto signupDto,String role) {
+    public Boolean addUser(SignupDto signupDto) {
         try {
+
             User user = new User();
             user.setEmail(signupDto.getEmail());
             user.setPassword(encode.encode(signupDto.getPassword()));
             user.setUsername(signupDto.getUsername());
             user.setCreated(Instant.now());
-            user.setEnabled(false);
+            user.setEnabled(false);System.out.println("before save user");
+
             user = userRepository.save(user);
+            System.out.println("after");
            if(user.getId()!=null){
                return true;
            }

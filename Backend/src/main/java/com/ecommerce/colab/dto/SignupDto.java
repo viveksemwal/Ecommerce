@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 @Data
 public class SignupDto {
     String username;
