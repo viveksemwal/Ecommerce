@@ -28,6 +28,6 @@ public class VerificationToken {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name ="user_id")
-    private long userid;
+    private User userid;
 
 }

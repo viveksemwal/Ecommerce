@@ -1,4 +1,4 @@
-package com.ecommerce.colab.service;
+package com.ecommerce.colab.service.allinterface;
 
 import com.ecommerce.colab.dto.SignupDto;
 
